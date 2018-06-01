@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "DataPointList",
+  "type": "object",
+  "properties": {
+    "datapoints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "attributes": {
+            "type": "object"
+          },
+          "quality": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 3
+          },
+          "timestamp": {
+            "type": "integer",
+            "format": "date-time"
+          },
+          "required": [
+            "name",
+            "value"
+          ]
+        }
+      }
+    }
+  }
+}
