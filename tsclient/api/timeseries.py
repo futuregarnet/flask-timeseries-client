@@ -15,7 +15,7 @@ def get_tags():
     return jsonify(ts.get_tags())
 
 
-@api.route('/lastest/', methods=['POST'])
+@api.route('/latest/', methods=['POST'])
 @tag_validation
 def get_latest():
     tags = request.get_json(force=True, silent=True)
