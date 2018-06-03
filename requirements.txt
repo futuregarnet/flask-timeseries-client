@@ -3,3 +3,4 @@ gunicorn
 predix
 jsonschema
 strict-rfc3339
+werkzeug
