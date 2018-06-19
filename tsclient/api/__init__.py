@@ -20,9 +20,9 @@ def tag_validation(route):
             tags_validator = Draft4Validator(tags_schema)
             errors = sorted(tags_validator.iter_errors(tags), key=lambda e: e.path)
             if len(errors) > 0:
-                return jsonify(errors=[error.message for error in errors])
+                return jsonify(errors=[error.message for error in errors]), 400
         else:
-            return jsonify(errors='Missing tags JSON.')
+            return jsonify(errors='Missing tags JSON.'), 400
         return route(*args, **kwargs)
     return validate_tags
 
@@ -37,9 +37,9 @@ def datapoints_validation(route):
             tags_validator = Draft4Validator(tags_schema, format_checker=FormatChecker())
             errors = sorted(tags_validator.iter_errors(tags), key=lambda e: e.path)
             if len(errors) > 0:
-                return jsonify(errors=[error.message for error in errors])
+                return jsonify(errors=[error.message for error in errors]), 400
         else:
-            return jsonify(errors='Missing datapoints JSON.')
+            return jsonify(errors='Missing datapoints JSON.'), 400
         return route(*args, **kwargs)
     return validate_datapoints
 
