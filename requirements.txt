@@ -4,3 +4,4 @@ predix
 jsonschema
 strict-rfc3339
 werkzeug
+flask-cors

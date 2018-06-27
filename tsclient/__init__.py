@@ -2,6 +2,7 @@ import os
 import logging
 
 from flask import Flask
+from flask_cors import CORS
 
 logger = logging.getLogger('root')
 
@@ -14,5 +15,7 @@ def create_app():
 
     from tsclient.api import api
     app.register_blueprint(api, url_prefix='/api/v1')
+
+    CORS(app)
 
     return app
