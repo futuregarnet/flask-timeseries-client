@@ -1,6 +1,6 @@
 ---
 applications:
-- name: arcade-data-client
+- name: predix-arcade-data-client
   memory: 256MB
   buildpack: https://github.com/cloudfoundry/python-buildpack.git
   random-route: true
