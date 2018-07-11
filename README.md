@@ -27,8 +27,8 @@ cd predix-arcade-data-client
 If you don't have them already, Python 3 (including pip) installed:
 
 1. Install [Python 3.6](https://www.python.org/downloads/release/python-366/):
-  - Windows: Be sure to click **Add Python 3.6 to PATH** [See Docs](https://docs.python.org/3/using/windows.html#installation-steps)
-  - Mac: `brew install python`
+    1. Windows: Be sure to click **Add Python 3.6 to PATH** [See Docs](https://docs.python.org/3/using/windows.html#installation-steps)
+    1. Mac: `brew install python`
 
 **Note**: (Windows Only) - If Python was installed but not added to PATH:
 1. Re-run the installer
