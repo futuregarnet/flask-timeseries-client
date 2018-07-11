@@ -1,8 +1,9 @@
 ---
 applications:
-- name: <APP_NAME>
+- name: arcade-data-client
   memory: 256MB
   buildpack: https://github.com/cloudfoundry/python-buildpack.git
+  random-route: true
   services:
    - <PREDIX_UAA_SERVICE>
    - <PREDIX_TIMESERIES_SERVICE>

@@ -1,4 +1,4 @@
-# Flask Predix Timeseries Client
+# Predix Arcade Data Client
 
 This client serves as a basic Predix data client that can be used to query the Predix Timeseries service using Python/Flask. The repo only includes minimal classes.
 
@@ -7,47 +7,47 @@ The main dependency is the [PredixPy SDK](https://predixpy.run.aws-usw02-pr.ice.
 This API is meant to abstract the Timeseries API and simplify authentication and requests.
 
 
-## Getting Started
+## Development Setup
 
-Make a directory for your project.  Clone or download and extract the repo in that directory.
+If you're working through my Predix Arcade series, this data client is the 1st step in creating a full Predix Arcade app that monitors an arcade asset (NES emulator). Be sure to complete this tutorial first.
+
+1. **[Predix Arcade Data Client](https://github.com/futuregarnet/predix-arcade-data-client#predix-arcade-data-client)**
+1. [Predix Arcade](https://github.com/futuregarnet/predix-arcade#predix-arcade)
+1. [Predix Arcade Dashboard Starter Kit](https://github.com/futuregarnet/predix-arcade-dashboard-starter-kit#predix-arcade-dashboard-starter-kit)
+
+Clone or download and extract the source code:
 
 ```shell
-git clone https://github.com/futuregarnet/flask-timeseries-client.git
-cd flask-timeseries-client
+git clone https://github.com/futuregarnet/predix-arcade-data-client.git
+cd predix-arcade-data-client
 ```
 
-### Install Tools
-If you don't have them already, you'll need Python 2 installed globally on your machine.
+### Package Manager Installation
 
-1. Install [Python 2.7](https://www.python.org/downloads/release/python-2715/)
+If you don't have them already, Python 3 (including pip) installed:
 
-### Install the Dependencies
+1. Install [Python 3.6.6](https://www.python.org/downloads/release/python-366/)
+
+### Dependency Installation
+
 This app uses packages managed by pip. Issue the following command to install them:
 
 ```shell
 pip install -r requirements.txt
 ```
 
-## Configure Local Environment
+### Local Configuration
 
 You will need to create Predix UAA and Timeseries instances and update the config.json file with their details. To learn how to create Predix UAA Predix Timeseries instances, follow [this guide](https://www.predix.io/resources/tutorials/tutorial-details.html?tutorial_id=1544).
 
-You will need to copy the config and manifest templates to file locations that the app can locate.
+Edit the config.json file and add the following details:
 
-```shell
-cp config-template.json config.json
-cp manifest-template.yml manifest.yml
-```
-
-Edit the config.py and manifest.yml files and replace the following placeholders with your Predix service information:
-- **<PREDIX_SECURITY_UAA_URI>**: Predix UAA URI (US-West: https://<UAA_TENANT_ID>.predix-uaa.run.aws-usw02-pr.ice.predix.io)
+- **<UAA_TENANT_ID>**: Predix UAA Tenant ID
 - **<PREDIX_APP_CLIENT_ID>**: Predix UAA Client ID
 - **<PREDIX_APP_CLIENT_SECRET>**: Predix UAA Client Secret
 - **<PREDIX_DATA_TIMESERIES_ZONE_ID>**: Predix Timeseries Zone ID
-- **<PREDIX_DATA_TIMESERIES_INGEST_URI>**: Predix Timeseries Ingestion URI (US-West: wss://gateway-predix-data-services.run.aws-usw02-pr.ice.predix.io/v1/stream/messages)
-- **<PREDIX_DATA_TIMESERIES_QUERY_URI>**: Predix Timeseries Query URI (US-West: https://time-series-store-predix.run.aws-usw02-pr.ice.predix.io)
 
-**NOTE**: Because these file contains sensitive information about your Predix services, config.py and manifest.yml have been added to the .gitignore file and will not be pushed to GitHub during commits.
+**NOTE**: Because these file can contain sensitive information about your Predix services, config.json and manifest.yml should not be pushed to GitHub during commits.
 
 ## Local Development
 
@@ -63,7 +63,10 @@ gunicorn manage:app --log-config logging.ini [--bind localhost:<PORT>] [--reload
 
 To test the API, use an API tool (i.e. [Postman](https://www.getpostman.com/)) to send requests to [localhost:8000](http://localhost:8000) (change your port if different)
 
-### APIs                                                  
+### API Routes
+
+The following API routes are available for Timeseries data tasks:
+                                                  
 API Route | Method | Description | Body Format                                   
 ------------ | ------------- | ------------- | -------------                               
 /api/v1/tags | GET | Get list of available tag names | N/A
@@ -71,40 +74,21 @@ API Route | Method | Description | Body Format
 /api/v1/datapoints | POST | Get 10000 of the last datapoints for each of requested tags | `{"tags": ["<TAG_NAME_1>", ...]}`
 /api/v1/ingest | POST | Upload datapoints into timeseries | `{"datapoints": [{"name": "<TAG_NAME_1>", "value": "<VALUE>", "attributes": {"<KEY>": "<VALUE>"}}, ...]}`
 
-## Deployment
-You will also need to update the manifest template with your app and service names. Edit the manifest.yml file and add the following details:
- - **name**:
-   - **APP_NAME**: App name
- - **services**: 
-   - **PREDIX_UAA_SERVICE** UAA instance name
-   - **PREDIX_TIMESERIES_SERVICE** Timeseries instance name
+## Predix Deployment
 
-Push the app to the cloud using:
+The `manifest.yml` file is used for application configuration on the Predix platform. Edit the `manifest.yml` file with:
 
-```shell
-cf push
-```
+- **<PREDIX_UAA_SERVICE>**: Your UAA Instance Name
+- **<PREDIX_TIMESERIES_SERVICE>**: Your Time Series Instance Name
+- **<PREDIX_APP_CLIENT_ID>**: Your UAA Client ID
+- **<PREDIX_APP_CLIENT_SECRET>**: Your UAA Client Secret
 
-Once the upload and deployment are complete, the output should look something like this:
+
+Use the following commands to push to Predix:
 
 ```shell
-App ???????? was started using this command `gunicorn manage:app --log-config logging.ini`
-
-Showing health and status for app ??????? in org ??? / space ??? as ???...
-OK
-
-requested state: started
-instances: 1/1
-usage: 128M x 1 instances
-urls: <INSERT_APP_NAME>.run.aws-usw02-pr.ice.predix.io
-last uploaded: ??? ??? ## ##:##:## UTC 20##
-stack: cflinuxfs2
-buildpack: python_buildpack
-
-     state     since                    cpu     memory          disk           details
-#0   running   20##-##-## ##:##:## ?M   ##.#%   ##.#M of 128M   ###.#M of 1G
+cf push [-n <APP_NAME>]
 ```
 
-You can access your application using the URL provided.
-
-**NOTE**: You'll have to prepend the URL with https:// (e.g. https://&lt;APP_NAME&gt;.run.aws-usw02-pr.ice.predix.io).
+- `-n`: Provide a custom app name (also used for the URL)
+  - You can also update the **name** attribute in `manifest.yml` to a custom app name and remove the **random-route** attribute to avoid this parameter.

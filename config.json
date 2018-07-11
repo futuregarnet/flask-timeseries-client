@@ -1,0 +1,8 @@
+{
+  "PREDIX_SECURITY_UAA_URI": "https://<UAA_TENANT_ID>.predix-uaa.run.aws-usw02-pr.ice.predix.io",
+  "PREDIX_APP_CLIENT_ID": "<PREDIX_APP_CLIENT_ID>",
+  "PREDIX_APP_CLIENT_SECRET": "<PREDIX_APP_CLIENT_SECRET>",
+  "PREDIX_DATA_TIMESERIES_ZONE_ID": "<PREDIX_DATA_TIMESERIES_ZONE_ID>",
+  "PREDIX_DATA_TIMESERIES_INGEST_URI": "wss://gateway-predix-data-services.run.aws-usw02-pr.ice.predix.io/v1/stream/messages",
+  "PREDIX_DATA_TIMESERIES_QUERY_URI": "https://time-series-store-predix.run.aws-usw02-pr.ice.predix.io"
+}

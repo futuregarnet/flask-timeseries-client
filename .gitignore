@@ -28,7 +28,3 @@ instance/
 
 # IDE Files
 .idea/
-
-# Configuration Files
-manifest.yml
-config.json
