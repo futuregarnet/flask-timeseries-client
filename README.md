@@ -26,7 +26,15 @@ cd predix-arcade-data-client
 
 If you don't have them already, Python 3 (including pip) installed:
 
-1. Install [Python 3.6.6](https://www.python.org/downloads/release/python-366/)
+1. Install [Python 3.6](https://www.python.org/downloads/release/python-366/):
+  - Windows: Be sure to click **Add Python 3.6 to PATH** [See Docs](https://docs.python.org/3/using/windows.html#installation-steps)
+  - Mac: `brew install python`
+
+**Note**: (Windows Only) - If Python was installed but not added to PATH:
+1. Re-run the installer
+1. Select the **Modify** option
+1. Click **Next**
+1. Check the **Add Python to environment variables** option and click **Install**
 
 ### Dependency Installation
 
@@ -49,7 +57,7 @@ Edit the config.json file and add the following details:
 
 **NOTE**: Because these file can contain sensitive information about your Predix services, config.json and manifest.yml should not be pushed to GitHub during commits.
 
-## Local Development
+## Local Development (Linux/Mac Only)
 
 To start the app locally, issue the command:
 
